@@ -1,9 +1,28 @@
+def impossible?(a,b,c)
+  #cant get more than the biggest container
+  if(c > b)
+    puts -1
+    return true
+  elsif
+    
+    
+end
+
+
 num_test_cases = gets.to_i
 num_test_cases.times do 
   a = gets.chomp.to_i
   b = gets.chomp.to_i
   c = gets.chomp.to_i
-  puts "#{a + b + c}"
+  
+  #make sure a is smaller than b
+  if(a > b)
+    temp = a
+    a = b
+    b = temp
+  end
+  
+  next if impossible?(a,b,c)
 
   
 end

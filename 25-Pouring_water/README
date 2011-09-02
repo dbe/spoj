@@ -1,6 +1,6 @@
 Link: https://www.spoj.pl/problems/POUR1/
 
-My first idea was that this problem reaks of recursion. I'd love to set up a simple heuristic of getting the water level closer to the required as being better, then doing a solution that takes steps in this direction. This seems like an issue because it won't guarentee you will find an answer in any optimal amount of steps, which the problem requires.
+My first idea was that this problem reaks of recursion. I'd love to set up a simple heuristic of getting the water level closer to the required as being better, then doing a solution that takes steps in this direction. This seems like an issue because it won't guarantee you will find an answer in any optimal amount of steps, which the problem requires.
 
 On second though, the lowest hanging fruit was to think about finding any edge cases where its immediately obvious the solution is impossible (thus a -1 return value) The only case that is obvious, is when the required amount of water is greater than the biggest container.
 
@@ -20,3 +20,8 @@ The n*a case only gives us 3, so no new answers
 The b - (n * a) case gives us 2, by filling the 5, then dumping into the 3, the leftover is 2.
 So we know that the only possible solutions would be 1,2,3,4,5; and we already have 2,3 and 5. Can we get 1 or 4?
 Well, 1 is pretty easy actually, we just fill up the 3, then dump into the 5, then fill the 3, then dump into the 5. What is left over in the a cup is 1. This was the remainder when we went over on the n*a case. When n=1, we get 3, when n=2 we over fill the b cup, but, we get an interesting amount of water left. This needs to be added to one of the above cases as some type of rule. The rules seems to be something like..((b/a + 1) * a) - b where b/a is integer division (throw away remainder) This doesnt seem to work for the correct reason if b%a ==0. for instance the case of 5 and 10...but it still works. Interesting.
+
+
+New idea: A BFS would work well to guarantee the optimal amount of steps, but it would search forever if the problem was impossible. Two solutions to this, either find a way to know for sure if a solution is impossible, or find out a number of steps which after passing would constitute a "timing out" or it basically being impossible. Also, I could represent the states as a 2d array of booleans, and each time I enter a state, I mark it. I stop the BFS if I hit a node I have already hit before. I like this solution the most.
+
+Another impossible state seems to be, if a and b are even, then c can never be odd.
